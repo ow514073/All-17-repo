@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using RAP.Model;
+using RAP.Controller;
+using RAP.view;
 
-namespace KIT206_Week9
+
+namespace RAP.Model
 {
 
     //As an example, this includes an additional 'gender' called Any that could be used in a GUI drop-down list.
     //The filtering could then be modified that if Gender.Any is selected that the full list is returned with no filtering performed.
     public enum gender { Any, M, F, X };
-    public enum type { Staff, Student };    // added this, not sure if should be an enum but i think so
+    public enum resType { Staff, Student };    // added this, not sure if should be an enum but i think so
     public enum title { Dr, Ms, Mr };       // same as above, might need Mrs too but not in database
-    public enum campus {  Hobart, Launceston, Cradle Coast }    // same as above
+    public enum campus {  Hobart, Launceston, Cradle_Coast }    // same as above
+    public enum level { A,B,C,D,E};
 
     /// <summary>
     /// A class for a university researcher
@@ -22,15 +28,15 @@ namespace KIT206_Week9
         public int id { get; set; } // researcher's uniques id number
         public string name { get; set; }   // researcher's first name
         public gender gender { get; set; }  // gender of the researcher
-        public type type { get; set; }      // type of the researcher
+        public resType resType { get; set; }      // type of the researcher
         public title title { get; set; }    // title of the researcher
         public string unit { get; set; }    // unit that the researcher teaches/studies
         public campus campus { get; set; }  // campus that the researcher attends
         public string email { get; set; }   // email address
-        public string photo { get; set; }   // string of hyperlink to photo
+        public Url photo { get; set; }   // string of hyperlink to photo
         public string degree { get; set; }  // degree that the researcher is pursuing (can be null)
         public int supervisor_id { get; set; }  // id of their supervisor (can be null)
-        public string level { get; set; }    // level of researcher that the researcher is (can be null)
+        public level level { get; set; }    // level of researcher that the researcher is (can be null)
         public DateTime utas_start { get; set; }    // date researcher started at utas
         public DateTime current_start { get; set; } // date researcher started their current position
         public List<Publication> Publications { get; set; } // list of the researcher's publications
@@ -45,7 +51,7 @@ namespace KIT206_Week9
         // the time in years since the researcher started their current position
         public double tenure
         {
-            get { return (DateTime.Today - current_start).Years; }
+            get { return (DateTime.Today - current_start).Days/365; }
         }
 
 
@@ -69,7 +75,7 @@ namespace KIT206_Week9
         public override string ToString()
         {
             // returns the Researcher
-            return Researcher;
+            return name +  " (" + title + ")";
         }
     }
 }

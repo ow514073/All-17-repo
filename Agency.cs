@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows; //for generating a MessageBox upon encountering an error
-
 using MySql.Data.MySqlClient;
 using MySql.Data.Types;
+using RAP.Model;
+using RAP.Controller;
+using RAP.view;
+using System.Security.Policy;
 
-namespace KIT206_Week9
+namespace RAP.Database
 {
     abstract class Agency
     {
@@ -49,7 +52,7 @@ namespace KIT206_Week9
         //For step 2.2 in Week 8 tutorial
         public static List<Researcher> LoadAll()
         {
-            List<Employee> researchers = new List<Employee>();
+            List<Researcher> researchers = new List<Researcher>();
 
             MySqlConnection conn = GetConnection();
             MySqlDataReader rdr = null;
@@ -68,16 +71,16 @@ namespace KIT206_Week9
                     researchers.Add(new Researcher
                     {
                         id = rdr.GetInt32(0),
-                        type = ParseEnum<type>(rdr.GetString(1)),
+                        resType = ParseEnum<resType>(rdr.GetString(1)),
                         name = rdr.GetString(2) + " " + rdr.GetString(3),
                         title = ParseEnum<title>(rdr.GetString(4)),
                         unit = rdr.GetString(5),
                         campus = ParseEnum<campus>(rdr.GetString(6)),
                         email = rdr.GetString(7),
-                        photo = rdr.GetString(8),
+                        photo = new Url(rdr.GetString(8)),
                         degree = rdr.GetString(9),
                         supervisor_id = rdr.GetInt32(10),
-                        level = rdr.GetString(11),
+                        level = ParseEnum<level>(rdr.GetString(11)),
                         utas_start = rdr.GetDateTime(12),
                         current_start = rdr.GetDateTime(13)
                     });
@@ -129,7 +132,7 @@ namespace KIT206_Week9
                         Title = rdr.GetString(1),
                         Authors = rdr.GetString(2),
                         Year = rdr.GetInt32(3),
-                        Type = ParseEnum<Type>(rdr.GetString(4)),
+                        PubType = ParseEnum<PubType>(rdr.GetString(4)),
                         CiteAs = rdr.GetString(5),
                         Available = rdr.GetDateTime(6)
                     });

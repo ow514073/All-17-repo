@@ -1,0 +1,141 @@
+﻿<Window x:Class="RAP.view.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RAP"
+        mc:Ignorable="d"
+        Title="RAP" Height="550" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="FBNTextBox" HorizontalAlignment="Left" Height="23" Margin="10,18,0,0" TextWrapping="Wrap" Text="Filter by name" VerticalAlignment="Top" Width="103" Grid.Column="0"/>
+        <Button x:Name="searchButton" Content="Search" Height="23" Margin="130,18,13,0" VerticalAlignment="Top" Width="80" 
+                HorizontalAlignment="Center" FontSize="14" Click="SearchButton_Click"/>
+        <ComboBox x:Name="sortByCBx" Height="34" Margin="10,54,13,0" VerticalAlignment="Top" Width="200" 
+                  HorizontalAlignment="Center" FontSize="18" SelectionChanged="SortByCBx_SelectionChanged" >
+            <ComboBoxItem IsSelected="True">All Researchers</ComboBoxItem>
+            <ComboBoxItem>students only</ComboBoxItem>
+            <ComboBoxItem>A</ComboBoxItem>
+            <ComboBoxItem>B</ComboBoxItem>
+            <ComboBoxItem>C</ComboBoxItem>
+            <ComboBoxItem>D</ComboBoxItem>
+            <ComboBoxItem>E</ComboBoxItem>
+        </ComboBox>
+        <DataGrid x:Name="ResearcherGrid" HorizontalAlignment="Left" Height="407" Margin="10,102,0,0" VerticalAlignment="Top" Width="203"
+                  AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="ResearcherGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Family_Name" Binding="{Binding Family_name}" FontFamily="Arial" FontSize="14" Width="80"/>
+                <DataGridTextColumn Header="Given_Name" Binding="{Binding Given_name}" FontFamily="Arial" FontSize="14" Width="80"/>
+                <DataGridTextColumn Header="Title" Binding="{Binding Title}" FontFamily="Arial" FontSize="14" Width="40"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel  x:Name="DetailsPanel" Orientation="Vertical" Margin="10,18,10,10" Grid.ColumnSpan="2" Grid.Column="1" >
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Name:"/>
+                <Label Content="{Binding Name}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Title:"></Label>
+                <Label Content="{Binding Path=Title}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Unit:"></Label>
+                <Label Content="{Binding Path=Unit}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Campus:"></Label>
+                <Label Content="{Binding Path=Campus}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Current job:"></Label>
+                <Label Content="{Binding Path=Currentjob}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Commenced with institution:"></Label>
+                <Label Content="{Binding Path=Commencedwithinstitution}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Commenced current position:"></Label>
+                <Label Content="{Binding Path=Commencedcurrentposition}"></Label>
+            </StackPanel>
+            <Label Content="Previous positions:"/>
+            <ListBox Height="25" ItemsSource="{Binding Previouspositions}" Margin="10,0"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,214,0">
+                <Label Content="Tenure:"/>
+                <Label Content="{Binding Tenure}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Publications:"/>
+                <Label Content="{Binding Publications}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Degree:"></Label>
+                <Label Content="{Binding Path=Degree}"></Label>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Supervisions:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Supervisions}"/>
+            </StackPanel>
+            <DataGrid x:Name="PublicationGrid" HorizontalAlignment="Left" Height="154" VerticalAlignment="Top" Width="416"
+                  AutoGenerateColumns="False" SelectionMode="Single" SelectionChanged="PublicationGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Publication" Binding="{Binding Publication}" FontFamily="Arial" FontSize="14" Width="410"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel  x:Name="DetailsPanel1" Orientation="Vertical" Margin="10,252,18,187"  Grid.Column="2" >
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Publication:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Publications}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Performance:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Performance}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Supervisor:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Supervisor}"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel  x:Name="DetailsPanel2" Orientation="Vertical" Margin="18,18,10,311"  Grid.Column="2" >
+            <Image x:Name="Image" HorizontalAlignment="Left" Height="109" VerticalAlignment="Top" Width="109" Margin="45,0,0,0"/>
+        </StackPanel>
+        <StackPanel  x:Name="PublicationsPanel" Orientation="Vertical" Margin="18,18,10,10"  Grid.Column="3" >
+            <StackPanel Orientation="Horizontal">
+                <Label Content="DOI:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding DOI}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Title:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Title}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Authers:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding authers}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Years:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Years}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Cite_as:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding Cite_as}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Available:" RenderTransformOrigin="0.497,9.921"/>
+                <Label Content="{Binding available}"/>
+            </StackPanel>
+
+        </StackPanel>
+        <Button x:Name="Showname" Content="Show name" HorizontalAlignment="Left" Margin="138,331,0,0" VerticalAlignment="Top" Width="90" Click="SearchButton_Click" Height="23" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="Count" Content="Cumulative count" HorizontalAlignment="Left" Margin="130,253,0,0" VerticalAlignment="Top" Width="106" Click="SearchButton_Click" Height="23" Grid.Column="2" Grid.ColumnSpan="2"/>
+
+    </Grid>
+</Window>
